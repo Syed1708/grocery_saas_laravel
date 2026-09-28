@@ -55,4 +55,11 @@ class User extends Authenticatable
     {
         return $this->hasRole('cashier');
     }
+
+        public function allPrivileges()
+    {
+        return $this->roles->flatMap(function ($role) {
+            return $role->privileges ?? collect();
+        })->unique('id');
+    }
 }

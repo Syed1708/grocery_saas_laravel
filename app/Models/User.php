@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Tenant;
-use HasinHayder\Tyro\Concerns\HasTyroRoles; // <-- Correct Tyro Trait
+use App\Traits\BelongsToBranch; // 👈 1. Import Trait
+use HasinHayder\Tyro\Concerns\HasTyroRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasTyroRoles;
+    // 👇 2. Add BelongsToBranch here
+    use HasApiTokens, HasFactory, Notifiable, HasTyroRoles, BelongsToBranch;
 
     protected $fillable = [
-        'tenant_id',
+        'branch_id',
         'name',
         'email',
         'phone',
@@ -31,24 +31,23 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
-    public function tenant(): BelongsTo
-    {
-        return $this->belongsTo(Tenant::class);
-    }
-
-    // Role checks
     public function isSuperAdmin(): bool
     {
-        return $this->hasRole('super-admin') || is_null($this->tenant_id);
+        return $this->hasRole('super-admin');
     }
 
-    public function isOwner(): bool
+    public function isAdmin(): bool
     {
-        return $this->hasRole('owner');
+        return $this->hasRole('admin') || $this->hasRole('super-admin') || $this->hasRole('owner');
+    }
+
+    public function isManager(): bool
+    {
+        return $this->hasRole('manager');
     }
 
     public function isCashier(): bool
@@ -56,7 +55,7 @@ class User extends Authenticatable
         return $this->hasRole('cashier');
     }
 
-        public function allPrivileges()
+    public function allPrivileges()
     {
         return $this->roles->flatMap(function ($role) {
             return $role->privileges ?? collect();

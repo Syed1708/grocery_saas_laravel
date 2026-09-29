@@ -218,116 +218,65 @@ return [
     //     //     ],
     //     // ],
     // ],
-    'resources' => [
+'resources' => [
+
+        // ==========================================
+        // 🚀 WAY 1: Grouped Custom Links
+        // ==========================================
+        'pos_terminal' => [
+            'group'     => 'POS & Counters',
+            'title'     => 'Web POS Terminal',
+            'url'       => '/pos',
+            'target'    => '_blank',
+            'privilege' => 'pos.sell',
+            'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
+        ],
+        'sales_list' => [
+            'group'     => 'POS & Counters',
+            'title'     => 'Sales Invoices',
+            'url'       => '/sales',
+            'privilege' => 'pos.sell',
+        ],
+        'branches' => [
+            'group'     => 'Settings & Branches',
+            'title'     => 'শাখা ব্যবস্থাপনা (Branches)',
+            'url'       => '/branches',
+            'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
+        ],
+
+        // ==========================================
+        // 🚀 WAY 2: Grouped Dynamic Tyro CRUD (with model & fields)
+        // ==========================================
+        'categories' => [
+            'group'     => 'Product & Inventory', // Will automatically be grouped!
+            'model'     => 'App\Models\Category',
+            'title'     => 'Categories (CRUD)',
+            'privilege' => 'products.manage',
+            'fields'    => [
+                'name' => ['type' => 'text', 'label' => 'Category Name', 'rules' => 'required|max:255'],
+            ],
+        ],
+
+        // ==========================================
+        // 🚀 WAY 3: Ungrouped Default Tyro Resource
+        // ==========================================
         'posts' => [
-            'model' => 'App\Models\Post',
-            'title' => 'Posts',
+            // No 'group' defined -> renders in the native "Resources" section!
+            'model'  => 'App\Models\Post',
+            'title'  => 'Posts',
             'fields' => [
-                'title' => ['type' => 'text', 'label' => 'Title', 'rules' => 'required'],
+                'title'   => ['type' => 'text', 'label' => 'Title', 'rules' => 'required'],
                 'content' => ['type' => 'textarea', 'label' => 'Content'],
-                'category_id' => [
-                    'type' => 'select',
-                    'label' => 'Category',
-                    'relationship' => 'category', // Name of the relationship method in Post model
-                    'option_label' => 'name',
-                ],
-                'is_published' => ['type' => 'boolean', 'label' => 'Published'],
             ],
+        ],
+        'Branches' => [
+            // No 'group' defined -> renders in the native "Resources" section!
+            'model'  => 'App\Models\Branch',
+            'title'  => 'Branches',
+            'route'   => 'subscription.expired',
         ],
 
-        [
-            'group'      => 'POS & Counters',
-            'icon'       => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m-3-2.818l.879.559c.211.135.442.2.673.2.226 0 .453-.064.661-.19a1.122 1.122 0 00.465-.916c0-.528-.4-.954-.925-1.042l-.4-.067c-.525-.088-.925-.514-.925-1.042 0-.376.183-.728.497-.918a1.121 1.121 0 011.077-.14l.879.56M12 3v18"/></svg>',
-            'privilege'  => 'pos.sell',
-            'items'      => [
-                [
-                    'title'     => 'Web POS Terminal',
-                    'url'       => '/pos',
-                    'target'    => '_blank',
-                    // 👇 Custom Subitem Icon!
-                    'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
-                    'privilege' => 'pos.sell',
-                ],
-                [
-                    'title'     => 'Sales Invoices',
-                    'url'       => '/sales',
-                    // 👇 Custom Subitem Icon!
-                    'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
-                    'privilege' => 'pos.sell',
-                ],
-                [
-                    'title'     => 'Customer Due (বাকি খাতা)',
-                    'url'       => '/dues',
-                    // 👇 If no icon is given, it renders a sleek dot automatically!
-                    'privilege' => 'pos.due',
-                ],
-            ],
-        ],
-        [
-            'group'      => 'Product & Inventory',
-            'icon'       => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
-            'privilege'  => 'products.manage',
-            'items'      => [
-                [
-                    'title'     => 'Product List',
-                    'route'     => 'products.index',
-                    'privilege' => 'products.manage',
-                ],
-                [
-                    // Example of embedding a Tyro Dynamic CRUD resource safely!
-                    'title'     => 'Categories (CRUD)',
-                    'resource'  => 'categories',
-                    'privilege' => 'products.manage',
-                ],
-                [
-                    'title'     => 'Units (একক)',
-                    'resource'  => 'units',
-                    'privilege' => 'settings.manage',
-                ],
-            ],
-        ],
-        [
-            'group'      => 'Suppliers & Purchases',
-            'icon'       => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>',
-            'privilege'  => 'purchases.manage',
-            'items'      => [
-                [
-                    'title'     => 'Suppliers (মহাজন)',
-                    'route'     => 'suppliers.index',
-                    'privilege' => 'purchases.manage',
-                ],
-                [
-                    'title'     => 'New Purchase (পণ্য ক্রয়)',
-                    'route'     => 'purchases.create',
-                    'privilege' => 'purchases.manage',
-                ],
-            ],
-        ],
-        [
-            'group'      => 'Accounts & Finance',
-            'icon'       => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
-            // 'roles'      => ['owner', 'manager'], // Role-based check
-            'privilege'  => 'purchases.manage',
-            'items'      => [
-                [
-                    'title'     => 'Daily Expenses (দৈনিক খরচ)',
-                    'route'     => 'expenses.index',
-                    'privilege' => 'expenses.manage',
-                ],
-                [
-                    'title'     => 'Bank & MFS Accounts',
-                    'route'     => 'accounts.index',
-                    'privilege' => 'accounts.manage',
-                ],
-                [
-                    'title'     => 'Daily Profit & Loss',
-                    'route'     => 'reports.profit-loss',
-                    'privilege' => 'reports.profit-loss',
-                ],
-            ],
-        ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Resource UI Settings

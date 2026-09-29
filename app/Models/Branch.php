@@ -6,33 +6,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Tenant extends Model
+class Branch extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'slug',
-        'owner_name',
+        'code',
         'phone',
         'email',
         'address',
-        'trade_license',
-        'logo',
-        'currency',
-        'currency_symbol',
+        'is_main',
         'status',
-        'trial_ends_at',
-        'settings',
     ];
 
     protected $casts = [
-        'trial_ends_at' => 'datetime',
-        'settings'       => 'array',
+        'is_main' => 'boolean',
     ];
 
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 }

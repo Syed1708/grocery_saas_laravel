@@ -12,6 +12,10 @@
     </div>
 
     <div class="topbar-right">
+
+        <!-- Store Switcher Component -->
+        <x-store-switcher />
+
         <!-- Theme Toggle -->
         <button type="button" class="topbar-btn" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">

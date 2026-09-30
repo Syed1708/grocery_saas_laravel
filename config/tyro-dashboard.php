@@ -220,63 +220,13 @@ return [
     // ],
 'resources' => [
 
-        // ==========================================
-        // 🚀 WAY 1: Grouped Custom Links
-        // ==========================================
-        'pos_terminal' => [
-            'group'     => 'POS & Counters',
-            'title'     => 'Web POS Terminal',
-            'url'       => '/pos',
-            'target'    => '_blank',
-            'privilege' => 'pos.sell',
-            'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
-        ],
-        'sales_list' => [
-            'group'     => 'POS & Counters',
-            'title'     => 'Sales Invoices',
-            'url'       => '/sales',
-            'privilege' => 'pos.sell',
-        ],
+        // Module 1: Settings & Branches
         'branches' => [
             'group'     => 'Settings & Branches',
             'title'     => 'শাখা ব্যবস্থাপনা (Branches)',
             'url'       => '/branches',
             'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
         ],
-
-        // ==========================================
-        // 🚀 WAY 2: Grouped Dynamic Tyro CRUD (with model & fields)
-        // ==========================================
-        'categories' => [
-            'group'     => 'Product & Inventory', // Will automatically be grouped!
-            'model'     => 'App\Models\Category',
-            'title'     => 'Categories (CRUD)',
-            'privilege' => 'products.manage',
-            'fields'    => [
-                'name' => ['type' => 'text', 'label' => 'Category Name', 'rules' => 'required|max:255'],
-            ],
-        ],
-
-        // ==========================================
-        // 🚀 WAY 3: Ungrouped Default Tyro Resource
-        // ==========================================
-        'posts' => [
-            // No 'group' defined -> renders in the native "Resources" section!
-            'model'  => 'App\Models\Post',
-            'title'  => 'Posts',
-            'fields' => [
-                'title'   => ['type' => 'text', 'label' => 'Title', 'rules' => 'required'],
-                'content' => ['type' => 'textarea', 'label' => 'Content'],
-            ],
-        ],
-        'Branches' => [
-            // No 'group' defined -> renders in the native "Resources" section!
-            'model'  => 'App\Models\Branch',
-            'title'  => 'Branches',
-            'route'   => 'subscription.expired',
-        ],
-
-
 
 
         // Module 2: Settings & Financial Base
@@ -303,6 +253,33 @@ return [
             'title' => 'Shop Settings & Printer (দোকান কনফিগ)',
             'url'   => '/settings/shop',
             'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+        ],
+
+
+        // Module 3: Products & Catalog
+        'products_list' => [
+            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title' => 'Product List (মূল পণ্য তালিকা)',
+            'url'   => '/products',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
+        ],
+        'sections_list' => [
+            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title' => 'Product Sections (তাক ও সেকশন)',
+            'url'   => '/sections',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>',
+        ],
+        'categories_list' => [
+            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title' => 'Categories (ক্যাটাগরি)',
+            'url'   => '/categories',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>',
+        ],
+        'brands_list' => [
+            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title' => 'Brands / Companies (কোম্পানি)',
+            'url'   => '/brands',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
         ],
 
     ],

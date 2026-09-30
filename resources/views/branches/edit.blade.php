@@ -1,60 +1,72 @@
-@extends('tyro-dashboard::layouts.app')
+@extends('tyro-dashboard::layouts.admin')
 
-@section('title', 'শাখা এডিট করুন')
+@section('title', 'Edit Branch')
+
+@section('breadcrumb')
+<a href="{{ route($dashboardRoute::name('index')) }}">Dashboard</a>
+<span class="breadcrumb-separator">/</span>
+<a href="{{ route('branches.index') }}">Branches</a>
+<span class="breadcrumb-separator">/</span>
+<span>Edit</span>
+@endsection
 
 @section('content')
-<div class="max-w-2xl mx-auto space-y-6">
-    <div class="flex items-center justify-between">
-        <h1 class="text-xl font-bold">শাখা তথ্য পরিবর্তন</h1>
-        <a href="{{ route('branches.index') }}" class="text-sm text-slate-500 hover:underline">← ফিরে যান</a>
+<div class="page-header">
+    <div class="page-header-row">
+        <div>
+            <h1 class="page-title">Edit Store Branch (শাখা তথ্য পরিবর্তন)</h1>
+            <p class="page-description">Update branch name, contact numbers, and location address.</p>
+        </div>
+        <a href="{{ route('branches.index') }}" class="btn btn-secondary">← Back</a>
     </div>
+</div>
 
-    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
-        <form action="{{ route('branches.update', ['branch' => $branch->id]) }}" method="POST" class="space-y-4">
-            
+<div class="card" style="max-width: 650px; margin: 0 auto;">
+    <div class="card-body">
+        <form action="{{ route('branches.update', ['branch' => $branch->id]) }}" method="POST">
             @csrf
             @method('PUT')
 
-            <div>
-                <label class="block text-sm font-semibold mb-1">শাখার নাম <span class="text-red-500">*</span></label>
-                <input type="text" name="name" value="{{ old('name', $branch->name) }}" required class="w-full px-3 py-2 border rounded-lg text-sm">
+            <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label" for="name">Branch Name (শাখার নাম) <span style="color: var(--danger, #ef4444);">*</span></label>
+                <input type="text" id="name" name="name" class="form-input" value="{{ old('name', $branch->name) }}" required>
+                @error('name') <div style="color: var(--danger, #ef4444); font-size: 0.75rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">শাখা কোড</label>
-                    <input type="text" name="code" value="{{ old('code', $branch->code) }}" required class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group">
+                    <label class="form-label" for="code">Branch Code <span style="color: var(--danger, #ef4444);">*</span></label>
+                    <input type="text" id="code" name="code" class="form-input" value="{{ old('code', $branch->code) }}" required style="font-family: monospace;">
+                    @error('code') <div style="color: var(--danger, #ef4444); font-size: 0.75rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">ফোন নম্বর</label>
-                    <input type="text" name="phone" value="{{ old('phone', $branch->phone) }}" class="w-full px-3 py-2 border rounded-lg text-sm">
+                <div class="form-group">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" class="form-input" value="{{ old('phone', $branch->phone) }}">
                 </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-semibold mb-1">ঠিকানা</label>
-                <textarea name="address" rows="2" class="w-full px-3 py-2 border rounded-lg text-sm">{{ old('address', $branch->address) }}</textarea>
+            <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label" for="address">Full Address (ঠিকানা)</label>
+                <textarea id="address" name="address" class="form-textarea" rows="2">{{ old('address', $branch->address) }}</textarea>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">স্ট্যাটাস</label>
-                    <select name="status" class="w-full px-3 py-2 border rounded-lg text-sm">
-                        <option value="active" {{ $branch->status === 'active' ? 'selected' : '' }}>সক্রিয়</option>
-                        <option value="inactive" {{ $branch->status === 'inactive' ? 'selected' : '' }}>নিষ্ক্রিয়</option>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
+                <div class="form-group">
+                    <label class="form-label" for="status">Status</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="active" {{ $branch->status === 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="inactive" {{ $branch->status === 'inactive' ? 'selected' : '' }}>Inactive</option>
                     </select>
                 </div>
-                <div class="flex items-center gap-2 pt-6">
-                    <input type="checkbox" name="is_main" value="1" id="is_main" {{ $branch->is_main ? 'checked' : '' }} class="w-4 h-4 rounded text-blue-600">
-                    <label for="is_main" class="text-sm font-medium">প্রধান শাখা (Main Branch)</label>
+                <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem;">
+                    <input type="checkbox" id="is_main" name="is_main" value="1" {{ $branch->is_main ? 'checked' : '' }} style="width: 16px; height: 16px;">
+                    <label for="is_main" class="form-label" style="margin: 0; cursor: pointer;">This is the Main Branch (মেইন শাখা)</label>
                 </div>
             </div>
 
-            <div class="pt-4 border-t flex justify-end gap-3">
-                <a href="{{ route('branches.index') }}" class="px-4 py-2 border rounded-lg text-sm">বাতিল</a>
-                <button type="submit" class="px-5 py-2 bg-primary text-white rounded-lg text-sm font-semibold" style="background-color: var(--primary, #0ea5e9);">
-                    আপডেট করুন
-                </button>
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                <a href="{{ route('branches.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Update Branch</button>
             </div>
         </form>
     </div>

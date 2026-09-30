@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyAssetController;
 use App\Http\Controllers\OwnerTransactionController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductSectionController;
 use App\Http\Controllers\ShopSettingController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UnitController;
@@ -66,3 +70,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/settings/shop', [ShopSettingController::class, 'update'])->name('settings.shop.update');
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    // Module 3: Products & Catalog
+    Route::resource('sections', ProductSectionController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('brands', BrandController::class);
+    Route::resource('products', ProductController::class);
+    Route::get('/products/{product}/barcodes', [ProductController::class, 'printBarcodes'])->name('products.barcodes');
+});

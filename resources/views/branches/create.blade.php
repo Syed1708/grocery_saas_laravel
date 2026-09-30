@@ -1,59 +1,71 @@
-@extends('tyro-dashboard::layouts.app')
+@extends('tyro-dashboard::layouts.admin')
 
-@section('title', 'নতুন শাখা যোগ করুন')
+@section('title', 'Add Branch')
+
+@section('breadcrumb')
+<a href="{{ route($dashboardRoute::name('index')) }}">Dashboard</a>
+<span class="breadcrumb-separator">/</span>
+<a href="{{ route('branches.index') }}">Branches</a>
+<span class="breadcrumb-separator">/</span>
+<span>Create</span>
+@endsection
 
 @section('content')
-<div class="max-w-2xl mx-auto space-y-6">
-    <div class="flex items-center justify-between">
-        <h1 class="text-xl font-bold">নতুন শাখা যোগ করুন</h1>
-        <a href="{{ route('branches.index') }}" class="text-sm text-slate-500 hover:underline">← ফিরে যান</a>
+<div class="page-header">
+    <div class="page-header-row">
+        <div>
+            <h1 class="page-title">Add Store Branch (নতুন শাখা যোগ করুন)</h1>
+            <p class="page-description">Create a new branch outlet or sales counter.</p>
+        </div>
+        <a href="{{ route('branches.index') }}" class="btn btn-secondary">← Back</a>
     </div>
+</div>
 
-    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
-        <form action="{{ route('branches.store') }}" method="POST" class="space-y-4">
+<div class="card" style="max-width: 650px; margin: 0 auto;">
+    <div class="card-body">
+        <form action="{{ route('branches.store') }}" method="POST">
             @csrf
-            <div>
-                <label class="block text-sm font-semibold mb-1">শাখার নাম <span class="text-red-500">*</span></label>
-                <input type="text" name="name" value="{{ old('name') }}" placeholder="e.g. ধানমন্ডি শাখা" required class="w-full px-3 py-2 border rounded-lg text-sm">
-                @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label" for="name">Branch Name (শাখার নাম) <span style="color: var(--danger, #ef4444);">*</span></label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="e.g. ধানমন্ডি শাখা" value="{{ old('name') }}" required>
+                @error('name') <div style="color: var(--danger, #ef4444); font-size: 0.75rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">শাখা কোড (Code) <span class="text-red-500">*</span></label>
-                    <input type="text" name="code" value="{{ old('code', 'BR-0'.(\App\Models\Branch::count() + 1)) }}" required class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
-                    @error('code') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group">
+                    <label class="form-label" for="code">Branch Code <span style="color: var(--danger, #ef4444);">*</span></label>
+                    <input type="text" id="code" name="code" class="form-input" value="{{ old('code', 'BR-0'.(\App\Models\Branch::count() + 1)) }}" required style="font-family: monospace;">
+                    @error('code') <div style="color: var(--danger, #ef4444); font-size: 0.75rem; margin-top: 0.25rem;">{{ $message }}</div> @enderror
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">ফোন নম্বর</label>
-                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="017XXXXXXXX" class="w-full px-3 py-2 border rounded-lg text-sm">
+                <div class="form-group">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" class="form-input" placeholder="017XXXXXXXX" value="{{ old('phone') }}">
                 </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-semibold mb-1">শাখার পূর্ণ ঠিকানা</label>
-                <textarea name="address" rows="2" placeholder="দোকান নং, রোড, এলাকা..." class="w-full px-3 py-2 border rounded-lg text-sm">{{ old('address') }}</textarea>
+            <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label" for="address">Full Address (ঠিকানা)</label>
+                <textarea id="address" name="address" class="form-textarea" rows="2" placeholder="দোকান নং, রোড, এলাকা...">{{ old('address') }}</textarea>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">স্ট্যাটাস</label>
-                    <select name="status" class="w-full px-3 py-2 border rounded-lg text-sm">
-                        <option value="active">সক্রিয় (Active)</option>
-                        <option value="inactive">নিষ্ক্রিয় (Inactive)</option>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; align-items: center;">
+                <div class="form-group">
+                    <label class="form-label" for="status">Status</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
                     </select>
                 </div>
-                <div class="flex items-center gap-2 pt-6">
-                    <input type="checkbox" name="is_main" value="1" id="is_main" class="w-4 h-4 rounded text-blue-600">
-                    <label for="is_main" class="text-sm font-medium">এটি প্রধান শাখা (Main Branch)</label>
+                <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem;">
+                    <input type="checkbox" id="is_main" name="is_main" value="1" style="width: 16px; height: 16px;">
+                    <label for="is_main" class="form-label" style="margin: 0; cursor: pointer;">This is the Main Branch (মেইন ব্রাঞ্চ)</label>
                 </div>
             </div>
 
-            <div class="pt-4 border-t flex justify-end gap-3">
-                <a href="{{ route('branches.index') }}" class="px-4 py-2 border rounded-lg text-sm">বাতিল</a>
-                <button type="submit" class="px-5 py-2 bg-primary text-white rounded-lg text-sm font-semibold" style="background-color: var(--primary, #0ea5e9);">
-                    শাখা সংরক্ষণ করুন
-                </button>
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                <a href="{{ route('branches.index') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Branch</button>
             </div>
         </form>
     </div>

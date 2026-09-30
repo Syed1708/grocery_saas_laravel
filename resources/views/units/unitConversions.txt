@@ -1,0 +1,272 @@
+flowchart TD
+    subgraph CountFamily ["1. Count / Quantity Family (সংখ্যা/পিস)"]
+        Pc["Base Unit: Piece (পিস)"]
+        Hali["Hali (হালি) = 4 Pieces"]
+        Doz["Dozen (ডজন) = 12 Pieces"]
+        Pack["Pack (প্যাকেট) = 10 Pieces"]
+        Ctn["Carton (কার্টন) = 24 Pieces"]
+        Hali --> Pc
+        Doz --> Pc
+        Pack --> Pc
+        Ctn --> Pc
+    end
+
+    subgraph WeightFamily ["2. Weight Family (ওজন)"]
+        Kg["Base Unit: Kg (কেজি)"]
+        Gm["Gram (গ্রাম) = 0.001 Kg"]
+        S50["Sack 50kg (বস্তা) = 50 Kg"]
+        S25["Sack 25kg (বস্তা) = 25 Kg"]
+        Gm --> Kg
+        S50 --> Kg
+        S25 --> Kg
+    end
+
+    subgraph VolumeFamily ["3. Volume / Liquid Family (তরল)"]
+        Ltr["Base Unit: Liter (লিটার)"]
+        Ml["Milliliter (মিলি) = 0.001 Liter"]
+        B5L["Bottle 5L (বোতল) = 5 Liters"]
+        B500["Bottle 500ml = 0.5 Liter"]
+        Ml --> Ltr
+        B5L --> Ltr
+        B500 --> Ltr
+    end
+
+    subgraph RollFamily ["4. Length / Packaging Family (রোল/প্যাক)"]
+        Roll["Base Unit: Roll (রোল / পিস)"]
+        Box["Box (বক্স) = 12 Rolls"]
+        Box --> Roll
+    end
+
+
+
+
+    
+Here is a complete, real-world explanation of how unit conversions work in retail and how you can add any unit like Bottle, Liter, Pcs, Dozen, Roll, Pack, Sack, or Carton.
+1. The Core Principle: The "Base Unit" (মৌলিক একক)
+In inventory management, you cannot directly compare apples to oranges. You need a Base Unit for each measurement type so the computer can calculate stock and costs accurately:
+1
+ [This Unit]
+=
+Conversion Rate
+×
+[Base Unit]
+1 [This Unit]=Conversion Rate×[Base Unit]
+Every product in your shop belongs to one of 4 measurement families:
+code
+Mermaid
+flowchart TD
+    subgraph CountFamily ["1. Count / Quantity Family (সংখ্যা/পিস)"]
+        Pc["Base Unit: Piece (পিস)"]
+        Hali["Hali (হালি) = 4 Pieces"]
+        Doz["Dozen (ডজন) = 12 Pieces"]
+        Pack["Pack (প্যাকেট) = 10 Pieces"]
+        Ctn["Carton (কার্টন) = 24 Pieces"]
+        Hali --> Pc
+        Doz --> Pc
+        Pack --> Pc
+        Ctn --> Pc
+    end
+
+    subgraph WeightFamily ["2. Weight Family (ওজন)"]
+        Kg["Base Unit: Kg (কেজি)"]
+        Gm["Gram (গ্রাম) = 0.001 Kg"]
+        S50["Sack 50kg (বস্তা) = 50 Kg"]
+        S25["Sack 25kg (বস্তা) = 25 Kg"]
+        Gm --> Kg
+        S50 --> Kg
+        S25 --> Kg
+    end
+
+    subgraph VolumeFamily ["3. Volume / Liquid Family (তরল)"]
+        Ltr["Base Unit: Liter (লিটার)"]
+        Ml["Milliliter (মিলি) = 0.001 Liter"]
+        B5L["Bottle 5L (বোতল) = 5 Liters"]
+        B500["Bottle 500ml = 0.5 Liter"]
+        Ml --> Ltr
+        B5L --> Ltr
+        B500 --> Ltr
+    end
+
+    subgraph RollFamily ["4. Length / Packaging Family (রোল/প্যাক)"]
+        Roll["Base Unit: Roll (রোল / পিস)"]
+        Box["Box (বক্স) = 12 Rolls"]
+        Box --> Roll
+    end
+2. Ready-to-Use Configuration Cheat Sheet for Bangladesh
+Here is the exact formula to enter when creating units in your dashboard (/units/create):
+Unit Name (একক)	Code	Base Unit (মূল একক)	Conversion Rate (কনভার্সন রেট)	Allow Decimals?	Example in BD Grocery
+পিস (Piece)	pc	None (This is Base Unit)	null	❌ No	Soap, Shampoo, Biscuit
+হালি (Hali)	hali	পিস (Piece)	4.00	❌ No	ডিম (Eggs)
+ডজন (Dozen)	dozen	পিস (Piece)	12.00	❌ No	কলা (Banana), ডিম (Eggs)
+প্যাকেট (Pack - 10 pcs)	pack10	পিস (Piece)	10.00	❌ No	ওরস্যালাইন (SMC Orsaline)
+কার্টন (Carton - 24 pcs)	ctn24	পিস (Piece)	24.00	❌ No	চিপস, নুডলস, টুথপেস্ট
+কেজি (Kilogram)	kg	None (This is Base Unit)	null	✅ Yes	চাল, ডাল, আলু, পেঁয়াজ
+গ্রাম (Gram)	gm	কেজি (Kilogram)	0.001	✅ Yes	এলাচি, দারুচিনি, জিরা, গুঁড়া দুধ
+বস্তা ৫০ কেজি (Sack 50kg)	sack50	কেজি (Kilogram)	50.00	❌ No	মিনিকেট চালের বস্তা, চিনি
+বস্তা ২৫ কেজি (Sack 25kg)	sack25	কেজি (Kilogram)	25.00	❌ No	নাজিরশাইল চাল, আটা
+লিটার (Liter)	ltr	None (This is Base Unit)	null	✅ Yes	খোলা সয়াবিন তেল, দুধ
+মিলি (Milliliter)	ml	লিটার (Liter)	0.001	✅ Yes	লিকুইড ওষুধ, ফ্লেভার
+বোতল ৫ লিটার (Bottle 5L)	btl5l	লিটার (Liter)	5.00	❌ No	রূপচাঁদা ৫ লিটার বোতল
+রোল (Roll)	roll	None (This is Base Unit)	null	❌ No	টিস্যু রোল, ফয়েল পেপার
+বক্স (Box of 12 Rolls)	box12	রোল (Roll)	12.00	❌ No	টয়লেট টিস্যু বক্স (১২ রোল)
+3. How the Computer Computes This in Real Life
+Let’s look at 3 real-world scenarios in your POS & Inventory:
+Scenario A: Buying a 50kg Sack of Rice 
+→
+→
+ Selling in Kg and Grams
+Wholesale Purchase (ক্রয়):
+You buy 2 Sacks of Miniket Rice at ৳3,500/sack.
+Total Cost: ৳7,000.
+System automatically converts to Base Unit (Kg):
+2
+ Sacks
+×
+50
+ Kg
+=
+100
+ Kg Stock
+2 Sacks×50 Kg=100 Kg Stock
+Cost per Kg: 
+৳
+7
+,
+000
+÷
+100
+kg
+=
+৳
+70
+/
+kg
+৳7,000÷100kg=৳70/kg
+.
+Retail Sale at POS (বিক্রয়):
+Customer A buys 2.5 Kg rice 
+→
+→
+ Remaining stock: 
+100
+−
+2.5
+=
+97.5
+ Kg
+100−2.5=97.5 Kg
+.
+Customer B buys 500 Grams rice 
+→
+→
+ System converts: 
+500
+×
+0.001
+=
+0.5
+ Kg
+500×0.001=0.5 Kg
+.
+Remaining stock: 
+97.5
+−
+0.5
+=
+97.0
+ Kg
+97.5−0.5=97.0 Kg
+.
+You never have to calculate stock manually—the computer keeps everything normalized in Kg!
+Scenario B: Buying a Carton of Oil 
+→
+→
+ Selling Single Bottles
+Wholesale Purchase:
+You buy 1 Carton of 1-Liter Soyabean Oil containing 12 bottles.
+Carton Purchase Price: ৳2,040.
+Conversion Rate: 1 Carton = 12 Pieces (Bottles).
+System stores: 12 Bottles in stock.
+Unit cost: 
+৳
+2
+,
+040
+÷
+12
+=
+৳
+170
+/
+bottle
+৳2,040÷12=৳170/bottle
+.
+Sale at POS:
+Cashier scans 2 Bottles at retail price ৳185.
+System automatically deducts 2 Bottles from stock (
+12
+−
+2
+=
+10
+ Bottles remaining
+12−2=10 Bottles remaining
+).
+Real-time Profit on sale: 
+(
+185
+−
+170
+)
+×
+2
+=
+৳
+30
+ Profit
+(185−170)×2=৳30 Profit
+.
+Scenario C: Buying Eggs by the Hundred 
+→
+→
+ Selling by Hali or Dozen
+Wholesale Purchase:
+You buy 100 Pieces of eggs from the distributor.
+Sale at POS:
+Customer buys 2 Hali (হালি):
+2
+ Hali
+×
+4
+=
+8
+ Pieces deducted
+2 Hali×4=8 Pieces deducted
+Customer buys 1 Dozen (ডজন):
+1
+ Dozen
+×
+12
+=
+12
+ Pieces deducted
+1 Dozen×12=12 Pieces deducted
+Total remaining in stock: 
+100
+−
+8
+−
+12
+=
+80
+ Eggs
+100−8−12=80 Eggs
+.
+
+
+
+
+Summary
+When creating a Primary Unit (e.g., Piece, Kg, Liter, Roll): Leave Base Unit empty (None).
+When creating a Derived / Sub-unit (e.g., Dozen, Pack, Gram, Sack, Box): Select the Base Unit and enter the Multiplier (Conversion Rate).
+When selling at the POS counter or buying from wholesalers, the system automatically uses this multiplier to keep your stock 100% accurate!

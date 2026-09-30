@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\CompanyAssetController;
+use App\Http\Controllers\OwnerTransactionController;
+use App\Http\Controllers\ShopSettingController;
 use App\Http\Controllers\SubscriptionController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,5 +46,23 @@ Route::middleware(['auth'])->group(function () {
     
     // Manual License Renewal (by Admin)
     Route::post('/subscription/renew', [SubscriptionController::class, 'manualRenew'])->name('subscription.renew');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    // Measurement Units CRUD
+    Route::resource('units', UnitController::class);
+
+    // Company Assets CRUD
+    Route::resource('assets', CompanyAssetController::class);
+
+    // Owner Capital & Drawings
+    Route::get('/equity', [OwnerTransactionController::class, 'index'])->name('equity.index');
+    Route::post('/equity', [OwnerTransactionController::class, 'store'])->name('equity.store');
+    Route::delete('/equity/{transaction}', [OwnerTransactionController::class, 'destroy'])->name('equity.destroy');
+
+    // Shop Profile & Thermal Printer Settings
+    Route::get('/settings/shop', [ShopSettingController::class, 'index'])->name('settings.shop');
+    Route::post('/settings/shop', [ShopSettingController::class, 'update'])->name('settings.shop.update');
 });
 

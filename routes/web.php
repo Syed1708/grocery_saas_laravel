@@ -7,8 +7,11 @@ use App\Http\Controllers\CompanyAssetController;
 use App\Http\Controllers\OwnerTransactionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSectionController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ShopSettingController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SupplierPaymentController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     // Branch CRUD
     Route::resource('branches', BranchController::class);
     Route::post('/branches/switch/{branch}', [BranchController::class, 'switch'])->name('branches.switch');
-    
+
     // Manual License Renewal (by Admin)
     Route::post('/subscription/renew', [SubscriptionController::class, 'manualRenew'])->name('subscription.renew');
 });
@@ -78,4 +81,19 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('brands', BrandController::class);
     Route::resource('products', ProductController::class);
     Route::get('/products/{product}/barcodes', [ProductController::class, 'printBarcodes'])->name('products.barcodes');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    // Module 4: Suppliers & Purchases
+    Route::resource('suppliers', SupplierController::class);
+    Route::get('/suppliers/{supplier}/payment', [SupplierPaymentController::class, 'create'])->name('suppliers.payment.create');
+    Route::post('/suppliers/{supplier}/payment', [SupplierPaymentController::class, 'store'])->name('suppliers.payment.store');
+
+    Route::resource('purchases', PurchaseController::class);
+    Route::get('/purchases/{purchase}/view', [PurchaseController::class, 'show'])->name('purchases.view');
+
+
+    Route::get('/purchases/api/search-suppliers', [PurchaseController::class, 'searchSuppliers'])->name('purchases.api.suppliers');
+    Route::get('/purchases/api/search-products', [PurchaseController::class, 'searchProducts'])->name('purchases.api.products');
 });

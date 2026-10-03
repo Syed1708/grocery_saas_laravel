@@ -297,6 +297,40 @@ return [
             'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
 
+
+             // Module 5: Sales, POS & Due
+        'pos_terminal' => [
+            'group'     => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title'     => 'Web POS Terminal (ক্যাশ কাউন্টার)',
+            'url'       => '/pos',
+            'target'    => '_blank',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m-3-2.818l.879.559c.211.135.442.2.673.2.226 0 .453-.064.661-.19a1.122 1.122 0 00.465-.916c0-.528-.4-.954-.925-1.042l-.4-.067c-.525-.088-.925-.514-.925-1.042 0-.376.183-.728.497-.918a1.121 1.121 0 011.077-.14l.879.56M12 3v18"/></svg>',
+        ],
+        'sales_invoices' => [
+            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title' => 'Sales Invoices (বিক্রয় চালান)',
+            'url'   => '/sales',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+        ],
+        'customers_list' => [
+            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title' => 'Customers & Dues (বাকি খাতা)',
+            'url'   => '/customers',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+        ],
+        'sales_returns' => [
+            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title' => 'Sales Returns (পণ্য ফেরত)',
+            'url'   => '/returns',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>',
+        ],
+        'quotations_list' => [
+            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title' => 'Quotations (দরপত্র / মেমো)',
+            'url'   => '/quotations',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>',
+        ],
+
     ],
     /*
     |--------------------------------------------------------------------------

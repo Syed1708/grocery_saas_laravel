@@ -4,10 +4,16 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyAssetController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerPaymentController;
 use App\Http\Controllers\OwnerTransactionController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSectionController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\ShopSettingController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplierController;
@@ -96,4 +102,29 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/purchases/api/search-suppliers', [PurchaseController::class, 'searchSuppliers'])->name('purchases.api.suppliers');
     Route::get('/purchases/api/search-products', [PurchaseController::class, 'searchProducts'])->name('purchases.api.products');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Module 5: Customers & Bakir Khata
+    Route::resource('customers', CustomerController::class);
+    Route::get('/customers/{customer}/payment', [CustomerPaymentController::class, 'create'])->name('customers.payment.create');
+    Route::post('/customers/{customer}/payment', [CustomerPaymentController::class, 'store'])->name('customers.payment.store');
+
+    // POS Counter
+    Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+    Route::post('/pos/checkout', [PosController::class, 'checkout'])->name('pos.checkout');
+
+    // Sales Invoices
+    Route::resource('sales', SaleController::class)->only(['index', 'show']);
+
+    // Sales Returns
+    Route::resource('returns', SaleReturnController::class);
+
+    // Quotations
+    Route::resource('quotations', QuotationController::class);
+
+
+    Route::get('/pos/api/search-customers', [PosController::class, 'searchCustomers'])->name('pos.api.customers');
+    Route::post('/pos/api/quick-customer', [PosController::class, 'quickAddCustomer'])->name('pos.api.quick-customer');
+    Route::post('/quotations/{quotation}/convert', [QuotationController::class, 'convertToSale'])->name('quotations.convert');
 });

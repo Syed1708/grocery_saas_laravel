@@ -6,18 +6,22 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyAssetController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPaymentController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\OtherIncomeController;
 use App\Http\Controllers\OwnerTransactionController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSectionController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\SalaryAdvanceController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\ShopSettingController;
+use App\Http\Controllers\StaffProfileController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupplierPaymentController;
@@ -137,4 +141,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('expense-categories', ExpenseCategoryController::class);
     Route::resource('expenses', ExpenseController::class);
     Route::resource('incomes', OtherIncomeController::class);
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    // Module 7: Staff & Payroll
+    Route::resource('departments', DepartmentController::class);
+    Route::resource('staff', StaffProfileController::class);
+    Route::resource('advances', SalaryAdvanceController::class)->only(['index', 'create', 'store', 'destroy']);
+    Route::resource('payrolls', PayrollController::class)->only(['index', 'create', 'store', 'show']);
 });

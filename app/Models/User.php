@@ -61,4 +61,12 @@ class User extends Authenticatable
             return $role->privileges ?? collect();
         })->unique('id');
     }
+
+     /**
+     * Link user account to their staff profile
+     */
+    public function staffProfile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(StaffProfile::class, 'user_id');
+    }
 }

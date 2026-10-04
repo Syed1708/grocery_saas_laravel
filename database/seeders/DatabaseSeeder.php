@@ -21,5 +21,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $this->call([
+            Module1Seeder::class, // Roles, Privileges, Branches, Users, License
+            Module2Seeder::class, // Units, Assets, Equity, Shop Settings
+            Module3Seeder::class, // Product Sections, Categories, Brands, Products, Stocks
+            Module4Seeder::class, // Suppliers, Purchases, Supplier Payments
+            Module5Seeder::class, // Customers, Sales, Customer Payments, Quotations
+            Module6Seeder::class, // Expense Categories, Expenses, Other Incomes
+            Module7Seeder::class, // Departments, Staff Profiles, Payroll
+            Module8Seeder::class, // Accounts, Cash Drawer, Bank, bKash, Loans
+        ]);
     }
 }

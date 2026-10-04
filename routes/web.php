@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AccountTransferController;
+use App\Http\Controllers\BankChequeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -9,6 +12,7 @@ use App\Http\Controllers\CustomerPaymentController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\OtherIncomeController;
 use App\Http\Controllers\OwnerTransactionController;
 use App\Http\Controllers\PayrollController;
@@ -150,4 +154,27 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('staff', StaffProfileController::class);
     Route::resource('advances', SalaryAdvanceController::class)->only(['index', 'create', 'store', 'destroy']);
     Route::resource('payrolls', PayrollController::class)->only(['index', 'create', 'store', 'show']);
+});
+
+// ==========================================
+// MODULE 8: BANKING, CASH & MFS ROUTES
+// ==========================================
+Route::middleware(['auth'])->group(function () {
+    // Accounts Master & Statements
+    Route::resource('accounts', AccountController::class);
+    
+    // Internal Fund Transfer
+    Route::get('transfers/create', [AccountTransferController::class, 'create'])->name('transfers.create');
+    Route::post('transfers', [AccountTransferController::class, 'store'])->name('transfers.store');
+    
+    // Cheques Management
+    Route::get('cheques', [BankChequeController::class, 'index'])->name('cheques.index');
+    Route::get('cheques/create', [BankChequeController::class, 'create'])->name('cheques.create');
+    Route::post('cheques', [BankChequeController::class, 'store'])->name('cheques.store');
+    Route::patch('cheques/{cheque}/status', [BankChequeController::class, 'updateStatus'])->name('cheques.status');
+    Route::delete('cheques/{cheque}', [BankChequeController::class, 'destroy'])->name('cheques.destroy');
+    
+    // Loans & Hawlat
+    Route::resource('loans', LoanController::class);
+    Route::post('loans/{loan}/installments', [LoanController::class, 'addInstallment'])->name('loans.installments');
 });

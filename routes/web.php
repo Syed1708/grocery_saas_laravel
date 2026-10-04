@@ -6,6 +6,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyAssetController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPaymentController;
+use App\Http\Controllers\ExpenseCategoryController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\OtherIncomeController;
 use App\Http\Controllers\OwnerTransactionController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
@@ -127,4 +130,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos/api/search-customers', [PosController::class, 'searchCustomers'])->name('pos.api.customers');
     Route::post('/pos/api/quick-customer', [PosController::class, 'quickAddCustomer'])->name('pos.api.quick-customer');
     Route::post('/quotations/{quotation}/convert', [QuotationController::class, 'convertToSale'])->name('quotations.convert');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Module 6: Expenses & Other Incomes
+    Route::resource('expense-categories', ExpenseCategoryController::class);
+    Route::resource('expenses', ExpenseController::class);
+    Route::resource('incomes', OtherIncomeController::class);
 });

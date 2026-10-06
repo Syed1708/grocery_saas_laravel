@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountTransferController;
 use App\Http\Controllers\BankChequeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CashRegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyAssetController;
 use App\Http\Controllers\CustomerController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSectionController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryAdvanceController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleReturnController;
@@ -178,3 +180,22 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('loans', LoanController::class);
     Route::post('loans/{loan}/installments', [LoanController::class, 'addInstallment'])->name('loans.installments');
 });
+
+// ==========================================
+// MODULE 9: REPORTS, AUDITS & Z-REPORTS
+// ==========================================
+Route::middleware(['auth'])->prefix('reports')->name('reports.')->group(function () {
+    Route::get('balance', [ReportController::class, 'balanceReport'])->name('balance');
+    Route::get('due-collection', [ReportController::class, 'dueCollectionReport'])->name('due-collection');
+    Route::get('due-paid', [ReportController::class, 'duePaidReport'])->name('due-paid');
+    Route::get('sales', [ReportController::class, 'saleReport'])->name('sales');
+    Route::get('purchases', [ReportController::class, 'purchaseReport'])->name('purchases');
+    Route::get('stock', [ReportController::class, 'productStockReport'])->name('stock');
+    Route::get('supplier-purchases', [ReportController::class, 'supplierPurchaseReport'])->name('supplier-purchases');
+    Route::get('customer-ledger', [ReportController::class, 'customerLedgerReport'])->name('customer-ledger');
+
+    Route::get('daily-product-profit', [ReportController::class, 'dailyProductProfitReport'])->name('daily-product-profit');
+});
+
+// Day-End Z-Report Closings
+Route::resource('closings', CashRegisterController::class)->only(['index', 'create', 'store', 'show']);

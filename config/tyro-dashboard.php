@@ -405,6 +405,71 @@ return [
             'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
 
+        // ==========================================
+        // Module 9: Comprehensive Retail Reports
+        // ==========================================
+        'report_balance' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Balance Sheet (ব্যালেন্স খতিয়ান)',
+            'url'   => '/reports/balance',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
+        ],
+        'report_due_collection' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Due Collections (বাকি আদায়)',
+            'url'   => '/reports/due-collection',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+        ],
+        'report_due_paid' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Due Paid (মহাজন পরিশোধ)',
+            'url'   => '/reports/due-paid',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
+        ],
+        'report_sales' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Sales Invoices (বিক্রয় চালান)',
+            'url'   => '/reports/sales',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+        ],
+        'report_purchases' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Purchase Invoices (ক্রয় চালান)',
+            'url'   => '/reports/purchases',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>',
+        ],
+        'report_stock' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Product Stock (পণ্য মজুদ)',
+            'url'   => '/reports/stock',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
+        ],
+        'report_supplier_purchases' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Supplier Purchases (মহাজন ক্রয়)',
+            'url'   => '/reports/supplier-purchases',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+        ],
+        'report_customer_ledger' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Customer Ledger (কাস্টমার খতিয়ান)',
+            'url'   => '/reports/customer-ledger',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>',
+        ],
+        'report_daily_product_profit' => [
+            'group' => 'Reports & Financials (রিপোর্ট)',
+            'title' => 'Product Profit (পণ্য লাভ)',
+            'url'   => '/reports/daily-product-profit',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+        ],
+
+        'day_end_closings' => [
+            'group' => 'Reports & Audits (রিপোর্ট ও হিসাব)',
+            'title' => 'Day-End Z-Report (কাউন্টার ক্লোজিং)',
+            'url'   => '/closings',
+            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+        ],
+
     ],
     /*
     |--------------------------------------------------------------------------

@@ -24,7 +24,7 @@ return [
     | (user management, role management, privilege management, settings).
     |
     */
-    'admin_roles' => ['admin', 'super-admin'],
+    'admin_roles' => ['admin', 'super-admin','owner'],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
     |
     */
     'branding' => [
-        'app_name' => env('TYRO_DASHBOARD_APP_NAME', env('APP_NAME', 'Laravel')),
+        'app_name' => env('TYRO_DASHBOARD_APP_NAME', env('APP_NAME', 'Grocery Shop')),
         'logo' => env('TYRO_DASHBOARD_LOGO', null),
         'logo_height' => env('TYRO_DASHBOARD_LOGO_HEIGHT', '32px'),
         'favicon' => env('TYRO_DASHBOARD_FAVICON', null),
@@ -71,7 +71,8 @@ return [
         'sidebar_accent' => env('TYRO_DASHBOARD_SIDEBAR_ACCENT', null), // Custom text color for sidebar
         'sidebar_accent_foreground' => env('TYRO_DASHBOARD_SIDEBAR_ACCENT_FOREGROUND', null), // Custom text color for sidebar
         'sidebar_header_border' => env('TYRO_DASHBOARD_SIDEBAR_HEADER_BORDER', null), // Custom text color for sidebar
-        'sidebar_accordion_compact' => filter_var(env('TYRO_DASHBOARD_SIDEBAR_ACCORDION_COMPACT', false), FILTER_VALIDATE_BOOLEAN),
+        'sidebar_accordion_compact' => filter_var(env('TYRO_DASHBOARD_SIDEBAR_ACCORDION_COMPACT', true), FILTER_VALIDATE_BOOLEAN),
+        
     ],
 
     /*
@@ -206,97 +207,92 @@ return [
     | Define your resources here to automatically generate CRUD interfaces.
     |
     */
-    // 'resources' => [
-    //     // Example:
-    //     // 'posts' => [
-    //     //     'model' => 'App\Models\Post',
-    //     //     'title' => 'Posts',
-    //     //     'icon' => '<svg>...</svg>', // Optional SVG icon
-    //     //     'fields' => [
-    //     //         'title' => ['type' => 'text', 'label' => 'Title', 'rules' => 'required'],
-    //     //         'content' => ['type' => 'textarea', 'label' => 'Content'],
-    //     //     ],
-    //     // ],
-    // ],
-    'resources' => [
+'resources' => [
 
         // Module 1: Settings & Branches
         'branches' => [
             'group'     => 'Settings & Branches',
             'title'     => 'শাখা ব্যবস্থাপনা (Branches)',
             'url'       => '/branches',
-            'icon'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
+            'privilege' => 'branches.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
         ],
-
 
         // Module 2: Settings & Financial Base
         'units' => [
-            'group' => 'Settings & Financial Base',
-            'title' => 'Measurement Units (একক)',
-            'url'   => '/units',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>',
+            'group'     => 'Settings & Financial Base',
+            'title'     => 'Measurement Units (একক)',
+            'url'       => '/units',
+            'privilege' => 'settings.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>',
         ],
         'assets' => [
-            'group' => 'Settings & Financial Base',
-            'title' => 'Company Assets (দোকানের সম্পদ)',
-            'url'   => '/assets',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>',
+            'group'     => 'Settings & Financial Base',
+            'title'     => 'Company Assets (দোকানের সম্পদ)',
+            'url'       => '/assets',
+            'privilege' => 'settings.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>',
         ],
         'equity' => [
-            'group' => 'Settings & Financial Base',
-            'title' => 'Capital & Drawings (মূলধন ও উত্তোলন)',
-            'url'   => '/equity',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+            'group'     => 'Settings & Financial Base',
+            'title'     => 'Capital & Drawings (মূলধন ও উত্তোলন)',
+            'url'       => '/equity',
+            'privilege' => 'settings.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         ],
         'shop_settings' => [
-            'group' => 'Settings & Financial Base',
-            'title' => 'Shop Settings & Printer (দোকান কনফিগ)',
-            'url'   => '/settings/shop',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+            'group'     => 'Settings & Financial Base',
+            'title'     => 'Shop Settings & Printer (দোকান কনফিগ)',
+            'url'       => '/settings/shop',
+            'privilege' => 'settings.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
         ],
-
 
         // Module 3: Products & Catalog
         'products_list' => [
-            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
-            'title' => 'Product List (মূল পণ্য তালিকা)',
-            'url'   => '/products',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
+            'group'     => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title'     => 'Product List (মূল পণ্য তালিকা)',
+            'url'       => '/products',
+            'privilege' => 'products.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
         ],
         'sections_list' => [
-            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
-            'title' => 'Product Sections (তাক ও সেকশন)',
-            'url'   => '/sections',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>',
+            'group'     => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title'     => 'Product Sections (তাক ও সেকশন)',
+            'url'       => '/sections',
+            'privilege' => 'products.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>',
         ],
         'categories_list' => [
-            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
-            'title' => 'Categories (ক্যাটাগরি)',
-            'url'   => '/categories',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>',
+            'group'     => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title'     => 'Categories (ক্যাটাগরি)',
+            'url'       => '/categories',
+            'privilege' => 'products.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>',
         ],
         'brands_list' => [
-            'group' => 'Products & Catalog (পণ্য ক্যাটালগ)',
-            'title' => 'Brands / Companies (কোম্পানি)',
-            'url'   => '/brands',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
+            'group'     => 'Products & Catalog (পণ্য ক্যাটালগ)',
+            'title'     => 'Brands / Companies (কোম্পানি)',
+            'url'       => '/brands',
+            'privilege' => 'products.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
         ],
-
 
         // Module 4: Purchases & Suppliers
         'purchases_list' => [
-            'group' => 'Purchases & Suppliers (মহাজন ও ক্রয়)',
-            'title' => 'Purchase Invoices (চালান তালিকা)',
-            'url'   => '/purchases',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+            'group'     => 'Purchases & Suppliers (মহাজন ও ক্রয়)',
+            'title'     => 'Purchase Invoices (চালান তালিকা)',
+            'url'       => '/purchases',
+            'privilege' => 'purchases.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
         ],
         'suppliers_list' => [
-            'group' => 'Purchases & Suppliers (মহাজন ও ক্রয়)',
-            'title' => 'Suppliers & Dues (মহাজন বাকি খাতা)',
-            'url'   => '/suppliers',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Purchases & Suppliers (মহাজন ও ক্রয়)',
+            'title'     => 'Suppliers & Dues (মহাজন বাকি খাতা)',
+            'url'       => '/suppliers',
+            'privilege' => 'purchases.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
-
 
         // Module 5: Sales, POS & Due
         'pos_terminal' => [
@@ -304,170 +300,191 @@ return [
             'title'     => 'Web POS Terminal (ক্যাশ কাউন্টার)',
             'url'       => '/pos',
             'target'    => '_blank',
+            'privilege' => 'pos.access',
             'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m-3-2.818l.879.559c.211.135.442.2.673.2.226 0 .453-.064.661-.19a1.122 1.122 0 00.465-.916c0-.528-.4-.954-.925-1.042l-.4-.067c-.525-.088-.925-.514-.925-1.042 0-.376.183-.728.497-.918a1.121 1.121 0 011.077-.14l.879.56M12 3v18"/></svg>',
         ],
         'sales_invoices' => [
-            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
-            'title' => 'Sales Invoices (বিক্রয় চালান)',
-            'url'   => '/sales',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+            'group'     => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title'     => 'Sales Invoices (বিক্রয় চালান)',
+            'url'       => '/sales',
+            'privilege' => 'sales.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
         ],
         'customers_list' => [
-            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
-            'title' => 'Customers & Dues (বাকি খাতা)',
-            'url'   => '/customers',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title'     => 'Customers & Dues (বাকি খাতা)',
+            'url'       => '/customers',
+            'privilege' => 'pos.due',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
         'sales_returns' => [
-            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
-            'title' => 'Sales Returns (পণ্য ফেরত)',
-            'url'   => '/returns',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>',
+            'group'     => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title'     => 'Sales Returns (পণ্য ফেরত)',
+            'url'       => '/returns',
+            'privilege' => 'sales.return',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>',
         ],
         'quotations_list' => [
-            'group' => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
-            'title' => 'Quotations (দরপত্র / মেমো)',
-            'url'   => '/quotations',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>',
+            'group'     => 'Sales & POS (বিক্রয় ও ক্যাশ কাউন্টার)',
+            'title'     => 'Quotations (দরপত্র / মেমো)',
+            'url'       => '/quotations',
+            'privilege' => 'pos.access',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>',
         ],
 
         // Module 6: Expenses & Incomes
         'expenses_list' => [
-            'group' => 'Expenses & Income (আয় ও ব্যয়)',
-            'title' => 'Daily Expenses (দৈনিক খরচ)',
-            'url'   => '/expenses',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+            'group'     => 'Expenses & Income (আয় ও ব্যয়)',
+            'title'     => 'Daily Expenses (দৈনিক খরচ)',
+            'url'       => '/expenses',
+            'privilege' => 'expenses.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         ],
         'expense_categories_list' => [
-            'group' => 'Expenses & Income (আয় ও ব্যয়)',
-            'title' => 'Expense Types (খরচের খাত)',
-            'url'   => '/expense-categories',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>',
+            'group'     => 'Expenses & Income (আয় ও ব্যয়)',
+            'title'     => 'Expense Types (খরচের খাত)',
+            'url'       => '/expense-categories',
+            'privilege' => 'expenses.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>',
         ],
         'incomes_list' => [
-            'group' => 'Expenses & Income (আয় ও ব্যয়)',
-            'title' => 'Other Incomes (অন্যান্য আয়)',
-            'url'   => '/incomes',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+            'group'     => 'Expenses & Income (আয় ও ব্যয়)',
+            'title'     => 'Other Incomes (অন্যান্য আয়)',
+            'url'       => '/incomes',
+            'privilege' => 'expenses.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         ],
-
 
         // Module 7: Staff & Payroll
         'staff_list' => [
-            'group' => 'Staff & Payroll (কর্মচারী ও বেতন)',
-            'title' => 'Staff Directory (কর্মচারী তালিকা)',
-            'url'   => '/staff',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>',
+            'group'     => 'Staff & Payroll (কর্মচারী ও বেতন)',
+            'title'     => 'Staff Directory (কর্মচারী তালিকা)',
+            'url'       => '/staff',
+            'privilege' => 'staff.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>',
         ],
         'payrolls_list' => [
-            'group' => 'Staff & Payroll (কর্মচারী ও বেতন)',
-            'title' => 'Monthly Payroll (মাসিক বেতন প্রদান)',
-            'url'   => '/payrolls',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Staff & Payroll (কর্মচারী ও বেতন)',
+            'title'     => 'Monthly Payroll (মাসিক বেতন প্রদান)',
+            'url'       => '/payrolls',
+            'privilege' => 'payroll.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
         'advances_list' => [
-            'group' => 'Staff & Payroll (কর্মচারী ও বেতন)',
-            'title' => 'Advance Salaries (অগ্রিম বেতন / হাওলাত)',
-            'url'   => '/advances',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+            'group'     => 'Staff & Payroll (কর্মচারী ও বেতন)',
+            'title'     => 'Advance Salaries (অগ্রিম বেতন / হাওলাত)',
+            'url'       => '/advances',
+            'privilege' => 'payroll.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         ],
         'departments_list' => [
-            'group' => 'Staff & Payroll (কর্মচারী ও বেতন)',
-            'title' => 'Departments (বিভাগ)',
-            'url'   => '/departments',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
+            'group'     => 'Staff & Payroll (কর্মচারী ও বেতন)',
+            'title'     => 'Departments (বিভাগ)',
+            'url'       => '/departments',
+            'privilege' => 'staff.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
         ],
-
 
         // Module 8: Banking, Cash Drawer & MFS
         'accounts_list' => [
-            'group' => 'Banking & Accounts (টাকা ও হিসাব)',
-            'title' => 'Accounts & Wallets (হিসাব তালিকা)',
-            'url'   => '/accounts',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
+            'group'     => 'Banking & Accounts (টাকা ও হিসাব)',
+            'title'     => 'Accounts & Wallets (হিসাব তালিকা)',
+            'url'       => '/accounts',
+            'privilege' => 'accounts.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
         ],
         'account_transfer' => [
-            'group' => 'Banking & Accounts (টাকা ও হিসাব)',
-            'title' => 'Fund Transfer (টাকা স্থানান্তর)',
-            'url'   => '/transfers/create',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>',
+            'group'     => 'Banking & Accounts (টাকা ও হিসাব)',
+            'title'     => 'Fund Transfer (টাকা স্থানান্তর)',
+            'url'       => '/transfers/create',
+            'privilege' => 'accounts.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>',
         ],
         'cheques_list' => [
-            'group' => 'Banking & Accounts (টাকা ও হিসাব)',
-            'title' => 'Bank Cheques (চেক খাতা)',
-            'url'   => '/cheques',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+            'group'     => 'Banking & Accounts (টাকা ও হিসাব)',
+            'title'     => 'Bank Cheques (চেক খাতা)',
+            'url'       => '/cheques',
+            'privilege' => 'accounts.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
         ],
         'loans_list' => [
-            'group' => 'Banking & Accounts (টাকা ও হিসাব)',
-            'title' => 'Loans & Hawlat (ঋণ ও হাওলাত)',
-            'url'   => '/loans',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Banking & Accounts (টাকা ও হিসাব)',
+            'title'     => 'Loans & Hawlat (ঋণ ও হাওলাত)',
+            'url'       => '/loans',
+            'privilege' => 'accounts.manage',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
 
-        // ==========================================
         // Module 9: Comprehensive Retail Reports
-        // ==========================================
         'report_balance' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Balance Sheet (ব্যালেন্স খতিয়ান)',
-            'url'   => '/reports/balance',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Balance Sheet (ব্যালেন্স খতিয়ান)',
+            'url'       => '/reports/balance',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
         ],
         'report_due_collection' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Due Collections (বাকি আদায়)',
-            'url'   => '/reports/due-collection',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Due Collections (বাকি আদায়)',
+            'url'       => '/reports/due-collection',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
         'report_due_paid' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Due Paid (মহাজন পরিশোধ)',
-            'url'   => '/reports/due-paid',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Due Paid (মহাজন পরিশোধ)',
+            'url'       => '/reports/due-paid',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>',
         ],
         'report_sales' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Sales Invoices (বিক্রয় চালান)',
-            'url'   => '/reports/sales',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Sales Invoices (বিক্রয় চালান)',
+            'url'       => '/reports/sales',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>',
         ],
         'report_purchases' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Purchase Invoices (ক্রয় চালান)',
-            'url'   => '/reports/purchases',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Purchase Invoices (ক্রয় চালান)',
+            'url'       => '/reports/purchases',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2h0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>',
         ],
         'report_stock' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Product Stock (পণ্য মজুদ)',
-            'url'   => '/reports/stock',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Product Stock (পণ্য মজুদ)',
+            'url'       => '/reports/stock',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
         ],
         'report_supplier_purchases' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Supplier Purchases (মহাজন ক্রয়)',
-            'url'   => '/reports/supplier-purchases',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Supplier Purchases (মহাজন ক্রয়)',
+            'url'       => '/reports/supplier-purchases',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
         'report_customer_ledger' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Customer Ledger (কাস্টমার খতিয়ান)',
-            'url'   => '/reports/customer-ledger',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Customer Ledger (কাস্টমার খতিয়ান)',
+            'url'       => '/reports/customer-ledger',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>',
         ],
         'report_daily_product_profit' => [
-            'group' => 'Reports & Financials (রিপোর্ট)',
-            'title' => 'Product Profit (পণ্য লাভ)',
-            'url'   => '/reports/daily-product-profit',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Product Profit (পণ্য লাভ)',
+            'url'       => '/reports/daily-product-profit',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
         ],
-
         'day_end_closings' => [
-            'group' => 'Reports & Audits (রিপোর্ট ও হিসাব)',
-            'title' => 'Day-End Z-Report (কাউন্টার ক্লোজিং)',
-            'url'   => '/closings',
-            'icon'  => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            'group'     => 'Reports & Financials (রিপোর্ট)',
+            'title'     => 'Day-End Z-Report (কাউন্টার ক্লোজিং)',
+            'url'       => '/closings',
+            'privilege' => 'reports.view',
+            'icon'      => '<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
         ],
 
     ],

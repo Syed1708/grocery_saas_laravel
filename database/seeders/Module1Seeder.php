@@ -35,7 +35,7 @@ class Module1Seeder extends Seeder
         // ========================================================
         // 2. PRIVILEGES DEFINITION
         // ========================================================
-        $privileges = [
+               $privileges = [
             // Branches
             'branches.manage'  => 'Manage Store Branches & Outlets',
             'branches.switch'  => 'Switch Between Active Branches',
@@ -59,11 +59,16 @@ class Module1Seeder extends Seeder
             'expenses.manage'  => 'Record and Review Expenses',
             'accounts.manage'  => 'Manage Cash, Bank and MFS Accounts',
 
+            // Staff & Payroll
+            'staff.manage'     => 'Manage Staff Profiles & Departments',
+            'payroll.manage'   => 'Manage Monthly Payroll & Advances',
+
             // Reports & Settings
             'reports.view'     => 'View Financial and Sales Reports',
             'settings.manage'  => 'Configure Store Settings and Units',
             'users.manage'     => 'Manage Staff Accounts and Roles',
         ];
+
 
         foreach ($privileges as $slug => $name) {
             Privilege::firstOrCreate(
@@ -82,13 +87,17 @@ class Module1Seeder extends Seeder
         $roleModels['admin']->privileges()->sync($allPrivileges->pluck('id'));
 
         // Manager gets branch operations privileges
+        // Manager gets full branch, catalog, purchase, account, staff & report operations
         $managerPrivs = Privilege::whereIn('slug', [
-            'branches.switch',
-            'pos.access', 'pos.sell', 'pos.due',
+            'branches.manage', 'branches.switch',
+            'pos.access', 'pos.sell', 'pos.discount', 'pos.due',
             'sales.view', 'sales.return',
             'products.view', 'products.manage',
             'purchases.manage',
             'expenses.manage',
+            'accounts.manage',
+            'staff.manage',
+            'payroll.manage',
             'reports.view',
         ])->pluck('id');
         $roleModels['manager']->privileges()->sync($managerPrivs);

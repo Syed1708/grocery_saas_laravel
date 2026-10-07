@@ -8,7 +8,18 @@
     <meta name="color-scheme" content="light dark">
 
     <title>@yield('title', 'Admin Dashboard') - {{ $branding['app_name'] ?? config('app.name', 'Laravel') }}</title>
-
+    @if ($favicon = $branding['favicon'] ?? config('tyro-dashboard.branding.favicon'))
+        @php
+            if (\Illuminate\Support\Str::startsWith($favicon, ['http://', 'https://'])) {
+                $faviconUrl = $favicon;
+            } elseif (\Illuminate\Support\Str::startsWith($favicon, '/')) {
+                $faviconUrl = asset($favicon); // For files in public/ root (e.g. /favicon.svg)
+            } else {
+                $faviconUrl = \Illuminate\Support\Facades\Storage::url($favicon); // For storage uploads
+            }
+        @endphp
+        <link rel="icon" href="{{ $faviconUrl }}">
+    @endif
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
@@ -47,7 +58,7 @@
     @include('tyro-dashboard::partials.scripts')
     @stack('scripts')
 
-        {{-- 🚀 Global Loader & Toast Notifications for ALL Pages --}}
+    {{-- 🚀 Global Loader & Toast Notifications for ALL Pages --}}
     <x-global-loader />
 </body>
 

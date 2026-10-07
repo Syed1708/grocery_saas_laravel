@@ -67,6 +67,12 @@ class BranchController extends Controller
 
     public function destroy(Branch $branch)
     {
+        $user = auth()->user();
+
+        // 🛡️ Guard: Manager cannot delete unless they have explicit delete privilege or are admin
+        if (!$user->isAdmin() && !$user->hasPrivilege('branches.delete')) {
+            return back()->with('error', 'আপনার শাখা মুছে ফেলার (Delete) অনুমতি নেই!');
+        }
         if ($branch->is_main) {
             return back()->with('error', 'প্রধান শাখা (Main Branch) ডিলিট করা সম্ভব নয়!');
         }
@@ -74,6 +80,8 @@ class BranchController extends Controller
         if ($branch->users()->count() > 0) {
             return back()->with('error', 'এই শাখায় কর্মরত স্টাফ রয়েছে। ডিলিট করার আগে স্টাফদের অন্য শাখায় স্থানান্তর করুন।');
         }
+
+  
 
         $branch->delete();
 

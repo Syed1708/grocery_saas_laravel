@@ -53,6 +53,7 @@ class BrandController extends Controller
 
     public function destroy(Brand $brand)
     {
+        
         if ($brand->products()->count() > 0) {
             return back()->with('error', 'এই ব্র্যান্ডের অধীনে পণ্য রয়েছে।');
         }

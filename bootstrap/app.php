@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         
         $middleware->web(append: [
             \App\Http\Middleware\EnforceSubscription::class,
-            \App\Http\Middleware\SetActiveBranch::class, // 👈 Added
+            \App\Http\Middleware\SetActiveBranch::class,
+            \App\Http\Middleware\CheckModulePrivilege::class, // 👈 Protects all custom modules automatically!
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

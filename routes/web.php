@@ -67,7 +67,7 @@ Route::post('/subscription/submit-payment', [SubscriptionController::class, 'sub
 // 2. Protected Store Area
 Route::middleware(['auth'])->group(function () {
     // Branch CRUD
-    Route::resource('branches', BranchController::class);
+    Route::resource('/branches', BranchController::class);
     Route::post('/branches/switch/{branch}', [BranchController::class, 'switch'])->name('branches.switch');
 
     // Manual License Renewal (by Admin)

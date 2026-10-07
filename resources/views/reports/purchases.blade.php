@@ -72,7 +72,7 @@
             @endforelse
         </tbody>
         <tfoot>
-            <tr style="background: #f1f5f9; font-weight: 800;">
+            <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 800;">
                 <td colspan="5" style="text-align: right;">মোট হিসাব (Grand Totals):</td>
                 <td style="text-align: right; font-family: monospace;">৳{{ number_format($totalGrand, 2) }}</td>
                 <td style="text-align: right; font-family: monospace; color: #15803d;">৳{{ number_format($totalPaid, 2) }}</td>

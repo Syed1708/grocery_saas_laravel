@@ -70,7 +70,7 @@
             @endforelse
         </tbody>
         <tfoot>
-            <tr style="background: #f1f5f9; font-weight: 800;">
+            <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 800;">
                 <td colspan="6" style="text-align: right;">সর্বমোট আদায় (Total Collection):</td>
                 <td style="text-align: right; font-family: monospace; font-size: 1rem; color: #15803d;">
                     ৳{{ number_format($totalAmount, 2) }}

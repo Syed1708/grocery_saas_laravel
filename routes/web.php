@@ -109,12 +109,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/suppliers/{supplier}/payment', [SupplierPaymentController::class, 'create'])->name('suppliers.payment.create');
     Route::post('/suppliers/{supplier}/payment', [SupplierPaymentController::class, 'store'])->name('suppliers.payment.store');
 
-    Route::resource('purchases', PurchaseController::class);
+    
     Route::get('/purchases/{purchase}/view', [PurchaseController::class, 'show'])->name('purchases.view');
 
 
     Route::get('/purchases/api/search-suppliers', [PurchaseController::class, 'searchSuppliers'])->name('purchases.api.suppliers');
     Route::get('/purchases/api/search-products', [PurchaseController::class, 'searchProducts'])->name('purchases.api.products');
+
+    Route::resource('purchases', PurchaseController::class);
+    
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -128,7 +131,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pos/checkout', [PosController::class, 'checkout'])->name('pos.checkout');
 
     // Sales Invoices
-    Route::resource('sales', SaleController::class)->only(['index', 'show']);
+    Route::resource('sales', SaleController::class);
 
     // Sales Returns
     Route::resource('returns', SaleReturnController::class);
@@ -138,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/pos/api/search-customers', [PosController::class, 'searchCustomers'])->name('pos.api.customers');
+    
     Route::post('/pos/api/quick-customer', [PosController::class, 'quickAddCustomer'])->name('pos.api.quick-customer');
     Route::post('/quotations/{quotation}/convert', [QuotationController::class, 'convertToSale'])->name('quotations.convert');
 });

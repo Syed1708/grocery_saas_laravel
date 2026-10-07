@@ -46,6 +46,9 @@
 
     @include('tyro-dashboard::partials.scripts')
     @stack('scripts')
+
+        {{-- 🚀 Global Loader & Toast Notifications for ALL Pages --}}
+    <x-global-loader />
 </body>
 
 </html>

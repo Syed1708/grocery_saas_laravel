@@ -94,8 +94,8 @@
             @endforelse
         </tbody>
         <tfoot>
-            <tr style="background: #f1f5f9; font-weight: 800;">
-                <td colspan="6" style="text-align: right;">সর্বমোট মূল্যায়ন (Total Valuation):</td>
+            <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 800;">
+                <td colspan="6" style="text-align: right;">সর্বমোট মূল্যায়ন (Total Valuation):</td>
                 <td style="text-align: right; font-family: monospace; color: #475569;">৳{{ number_format($totalCostValuation, 2) }}</td>
                 <td></td>
                 <td style="text-align: right; font-family: monospace; color: #0284c7;">৳{{ number_format($totalRetailValuation, 2) }}</td>

@@ -11,18 +11,27 @@ use Illuminate\Support\Facades\DB;
 
 class BankChequeController extends Controller
 {
+
+    /**
+     * Display a listing of bank cheques with filters & ledger totals.
+     */
     public function index(Request $request)
     {
         $query = BankCheque::with(['account', 'user']);
 
+        // 1. Filter by Cheque Type (received / issued)
         if ($request->filled('type')) {
             $query->where('type', $request->type);
         }
+
+        // 2. Filter by Cheque Status (pending / cleared / bounced / cancelled)
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
+
+        // 3. Search by Cheque Number, Party Name, or Bank Name
         if ($request->filled('search')) {
-            $s = $request->search;
+            $s = trim($request->search);
             $query->where(function ($q) use ($s) {
                 $q->where('cheque_number', 'like', "%{$s}%")
                   ->orWhere('party_name', 'like', "%{$s}%")
@@ -30,14 +39,31 @@ class BankChequeController extends Controller
             });
         }
 
+        // 4. Optional Date Range Filter
+        if ($request->filled('from_date')) {
+            $query->whereDate('cheque_date', '>=', $request->from_date);
+        }
+        if ($request->filled('to_date')) {
+            $query->whereDate('cheque_date', '<=', $request->to_date);
+        }
+
+        // 5. Paginated results preserving active filters
         $cheques = $query->latest('cheque_date')->paginate(15)->withQueryString();
-        $pendingReceived = BankCheque::where('type', 'received')->where('status', 'pending')->sum('amount');
-        $pendingIssued   = BankCheque::where('type', 'issued')->where('status', 'pending')->sum('amount');
+
+        // 6. Summary Totals (Pending Receivable vs Pending Payable)
+        $totalPending  = (float) (BankCheque::where('type', 'received')->where('status', 'pending')->sum('amount') ?? 0);
+        $totalCleared   = (float) (BankCheque::where('type', 'issued')->where('status', 'cleared')->sum('amount') ?? 0);
+
+        // 7. Active Accounts for Cheque Clearance dropdown
         $accounts = Account::active()->whereIn('type', ['bank', 'cash'])->get();
 
-        return view('cheques.index', compact('cheques', 'pendingReceived', 'pendingIssued', 'accounts'));
+        return view('cheques.index', compact(
+            'cheques',
+            'totalPending',
+            'totalCleared',
+            'accounts'
+        ));
     }
-
     public function create()
     {
         return view('cheques.create');

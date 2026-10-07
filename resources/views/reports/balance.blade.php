@@ -77,13 +77,13 @@
                         <td style="color: #b91c1c;">বাকি বিক্রয় (Due Sales)</td>
                         <td style="text-align: right; font-family: monospace; font-weight: 600; color: #b91c1c;">৳{{ number_format($dueSales, 2) }}</td>
                     </tr>
-                    <tr style="background: #f8fafc; font-weight: 800;">
-                        <td>সর্বমোট বিক্রয় (Total Sales)</td>
+                    <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 800;">
+                        <td>সর্বমোট বিক্রয় (Total Sales)</td>
                         <td style="text-align: right; font-family: monospace; font-size: 0.95rem;">৳{{ number_format($totalSales, 2) }}</td>
                     </tr>
 
-                    <tr style="border-top: 2px solid #000; background: #f1f5f9;">
-                        <th colspan="2">আদায় ও অন্যান্য আয় (Collections & Incomes)</th>
+                    <tr style="border-top: 2px solid #000; background: var(--muted, rgba(148, 163, 184, 0.05));">
+                        <th colspan="2">আদায় ও অন্যান্য আয় (Collections & Incomes)</th>
                     </tr>
                     <tr>
                         <td>কাস্টমার বকেয়া আদায় (Due Collection)</td>
@@ -93,7 +93,7 @@
                         <td>অন্যান্য আয় (Other Incomes / বস্তা-স্ক্র্যাপ বিক্রি)</td>
                         <td style="text-align: right; font-family: monospace; font-weight: 600; color: #15803d;">+ ৳{{ number_format($otherIncome, 2) }}</td>
                     </tr>
-                    <tr style="background: #e2e8f0; font-weight: 900;">
+                    <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 900;">
                         <td>মোট নগদ প্রাপ্তি (Total Receipts)</td>
                         <td style="text-align: right; font-family: monospace; font-size: 1rem; color: #15803d;">৳{{ number_format($totalReceipts, 2) }}</td>
                     </tr>
@@ -134,7 +134,7 @@
                         <td>কর্মচারী বেতন, বোনাস ও অগ্রিম (Salary & Overtime)</td>
                         <td style="text-align: right; font-family: monospace; font-weight: 600; color: #b91c1c;">৳{{ number_format($salaryExpense, 2) }}</td>
                     </tr>
-                    <tr style="background: #fee2e2; font-weight: 800;">
+                    <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 800;">
                         <td>মোট খরচ ও পরিশোধ (Total Payments)</td>
                         <td style="text-align: right; font-family: monospace; font-size: 0.95rem; color: #b91c1c;">৳{{ number_format($totalPayments, 2) }}</td>
                     </tr>
@@ -142,12 +142,12 @@
             </table>
 
             <!-- Grand In-Hand Summary Card -->
-            <div style="border: 2px solid #000; background: #f8fafc; padding: 12px; border-radius: 6px; margin-top: 16px;">
-                <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #475569;">
+            <div style="border: 2px solid #000; background: var(--muted, rgba(148, 163, 184, 0.05)); padding: 12px; border-radius: 6px; margin-top: 16px;">
+                <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">
                     হিসাব সূত্র: Total In Hand = Total Receipts - Paid Purchase - Due Paid - Expense - Salary
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-                    <strong style="font-size: 1.1rem; color: #000;">হাতে নগদ স্থিতি (Total In Hand):</strong>
+                    <strong style="font-size: 1.1rem;">হাতে নগদ স্থিতি (Total In Hand):</strong>
                     <strong style="font-size: 1.4rem; font-family: monospace; color: {{ $totalInHand >= 0 ? '#15803d' : '#b91c1c' }};">
                         ৳{{ number_format($totalInHand, 2) }}
                     </strong>

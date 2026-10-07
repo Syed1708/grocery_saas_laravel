@@ -83,8 +83,8 @@
             <tr><td colspan="10" style="text-align: center;">কোনো বিক্রিত পণ্যের তথ্য পাওয়া যায়নি।</td></tr>
             @endforelse
         </tbody>
-        <tfoot>
-            <tr style="background: #f1f5f9; font-weight: 800;">
+        <tfoot> 
+            <tr style="background: var(--muted, rgba(148, 163, 184, 0.05)); font-weight: 800;">
                 <td colspan="6" style="text-align: right;">সর্বমোট লাভ (Grand Profit):</td>
                 <td style="text-align: right; font-family: monospace; color: #475569;">৳{{ number_format($totalCost, 2) }}</td>
                 <td style="text-align: right; font-family: monospace;">৳{{ number_format($totalRevenue, 2) }}</td>

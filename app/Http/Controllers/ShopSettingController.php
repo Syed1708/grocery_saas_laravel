@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShopSetting;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ShopSettingController extends Controller
@@ -27,6 +28,14 @@ class ShopSettingController extends Controller
         ];
 
         return view('settings.shop', compact('settings'));
+    }
+
+    public function shopsubscription()
+    {
+
+        $license = \App\Models\License::first();
+        
+        return view('settings.shopsubcription', compact('license'));
     }
 
     public function update(Request $request)

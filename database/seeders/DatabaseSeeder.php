@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             Module7Seeder::class, // Departments, Staff Profiles, Payroll
             Module8Seeder::class, // Accounts, Cash Drawer, Bank, bKash, Loans
             Module9Seeder::class, // 👈 Added
+            RealTestDataSeeder::class, // 👈 Added
 
         ]);
     }

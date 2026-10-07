@@ -13,16 +13,27 @@ class EnforceSubscription
     {
         $license = License::first();
 
-        // If no license record exists or it is expired
+        // If license exists and is expired
         if ($license && $license->isExpired()) {
-            // Allow access only to renewal endpoints and logout
-            $allowedRoutes = [
+            $routeName = $request->route()?->getName() ?? '';
+
+            // 🚀 Always allow Login, Logout, and Subscription endpoints!
+            $isAllowed = in_array($routeName, [
                 'subscription.expired',
                 'subscription.submit-payment',
-                'tyro-login.logout',
-            ];
+                'subscription.manual-renew',
+                'settings.shopsubscription',
+                'login',
+                'logout',
+            ]) || str_starts_with($routeName, 'tyro-login.') || str_starts_with($routeName, 'login');
 
-            if (!in_array($request->route()?->getName(), $allowedRoutes)) {
+            // If a Super Admin / Vendor is logged in, allow them to manage and renew
+            $user = $request->user();
+            if ($user && ($user->isVendor())) {
+                $isAllowed = true;
+            }
+
+            if (!$isAllowed) {
                 if ($request->expectsJson()) {
                     return response()->json([
                         'error' => 'মাসিক সাবস্ক্রিপশনের মেয়াদ শেষ হয়েছে। দয়া করে নবায়ন করুন।'

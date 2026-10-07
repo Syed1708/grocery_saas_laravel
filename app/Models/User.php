@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasRole('admin') || $this->hasRole('super-admin') || $this->hasRole('owner');
     }
 
+    public function isVendor(): bool
+    {
+        return $this->hasRole('vendor');
+    }
+
     public function isManager(): bool
     {
         return $this->hasRole('manager');

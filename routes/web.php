@@ -58,7 +58,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/profit-loss', fn() => 'Profit Loss (Coming in Module 9)')->name('reports.profit-loss');
 });
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::post('/subscription/manual-renew', [SubscriptionController::class, 'manualRenew'])->name('subscription.manual-renew');
+});
 
 // 1. Subscription & Payment Routes (Publicly accessible when locked)
 Route::get('/subscription/expired', [SubscriptionController::class, 'expired'])->name('subscription.expired');
@@ -87,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/equity', [OwnerTransactionController::class, 'store'])->name('equity.store');
     Route::delete('/equity/{transaction}', [OwnerTransactionController::class, 'destroy'])->name('equity.destroy');
 
+    // shop subscription & license management
+    Route::get('/shopsubscription', [ShopSettingController::class, 'shopsubscription'])->name('settings.shopsubscription');
     // Shop Profile & Thermal Printer Settings
     Route::get('/settings/shop', [ShopSettingController::class, 'index'])->name('settings.shop');
     Route::post('/settings/shop', [ShopSettingController::class, 'update'])->name('settings.shop.update');

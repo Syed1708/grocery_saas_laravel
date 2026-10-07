@@ -32,6 +32,7 @@ class CheckModulePrivilege
             'assets'             => 'settings.manage',
             'equity'             => 'settings.manage',
             'settings'           => 'settings.manage',
+            'shopsubscription'   => 'settings.managesubscription',
             'products'           => 'products.view',
             'sections'           => 'products.manage',
             'categories'         => 'products.manage',

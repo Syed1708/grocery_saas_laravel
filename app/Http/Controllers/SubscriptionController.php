@@ -36,6 +36,10 @@ class SubscriptionController extends Controller
             'months' => 'required|integer|min:1|max:12',
         ]);
 
+        if (!auth()->user()->isVendor()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $license = License::first();
         if ($license) {
             $currentExpiry = $license->expires_at->isPast() ? now() : $license->expires_at;
@@ -47,6 +51,6 @@ class SubscriptionController extends Controller
             ]);
         }
 
-        return back()->with('success', 'সাবস্ক্রিপশনের মেয়াদ সফলভাবে বৃদ্ধি করা হয়েছে!');
+        return back()->with('success', 'সাবস্ক্রিপশনের মেয়াদ সফলভাবে বৃদ্ধি করা হয়েছে!');
     }
 }

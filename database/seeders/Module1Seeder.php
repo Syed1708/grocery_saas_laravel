@@ -15,13 +15,14 @@ class Module1Seeder extends Seeder
     public function run(): void
     {
         // ========================================================
-        // 1. ROLES DEFINITION (4 Core Roles)
+        // 1. ROLES DEFINITION (5 Core Roles)
         // ========================================================
         $roles = [
             'super-admin' => 'Platform Super Admin (সফটওয়্যার ভেন্ডর / ফুল অ্যাক্সেস)',
             'admin'       => 'Business Admin / Store Owner (দোকানের মালিক)',
             'manager'     => 'Branch Manager (শাখা ম্যানেজার)',
             'cashier'     => 'POS Cashier (কাউন্টার ক্যাশিয়ার)',
+            'vendor'      => 'Store Vendor (দোকানের ভেন্ডর)',
         ];
 
         $roleModels = [];
@@ -66,6 +67,7 @@ class Module1Seeder extends Seeder
             // Reports & Settings
             'reports.view'     => 'View Financial and Sales Reports',
             'settings.manage'  => 'Configure Store Settings and Units',
+            'settings.managesubscription'  => 'Manage Software License & Subscription',
             'users.manage'     => 'Manage Staff Accounts and Roles',
         ];
 
@@ -85,6 +87,7 @@ class Module1Seeder extends Seeder
         // Super Admin & Admin get ALL privileges
         $roleModels['super-admin']->privileges()->sync($allPrivileges->pluck('id'));
         $roleModels['admin']->privileges()->sync($allPrivileges->pluck('id'));
+        $roleModels['vendor']->privileges()->sync($allPrivileges->pluck('id'));
 
         // Manager gets branch operations privileges
         // Manager gets full branch, catalog, purchase, account, staff & report operations
@@ -140,6 +143,18 @@ class Module1Seeder extends Seeder
         // ========================================================
 
         // User 1: Super Admin (Platform / Software Vendor Admin)
+        $vendor = User::firstOrCreate(
+            ['email' => 'vendor@grocery.test'],
+            [
+                'name'      => 'Ventor Admin (ভেন্ডর অ্যাডমিন)',
+                'phone'     => '01700000000',
+                'password'  => Hash::make('password123'),
+                'branch_id' => null, // Oversees all
+            ]
+        );
+        if (!$vendor->hasRole('vendor')) {
+            $vendor->assignRole($roleModels['vendor']);
+        }
         $superAdmin = User::firstOrCreate(
             ['email' => 'superadmin@grocery.test'],
             [
